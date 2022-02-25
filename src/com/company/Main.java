@@ -13,9 +13,9 @@ public class Main {
 
         String[] stringArray = new String[]{"One", "Two", "Three"};
 
-        //List<String> stringList = new ArrayList<>(Arrays.asList(stringArray));
-        List<String> stringList = new ArrayList<>();
-        stringList.addAll(Arrays.asList(stringArray));
+        //List<String> stringList = new ArrayList<>();
+        //stringList.addAll(Arrays.asList(stringArray));
+        List<String> stringList = new ArrayList<>(Arrays.asList(stringArray));
         stringList.add("Four");
         stringList.add("Five");
         stringList.add("Six Seven Eight");
@@ -24,5 +24,6 @@ public class Main {
         form.setData(stringList);
 
         System.out.println("Six Seven Eight".contains("Six"));
+        System.out.println(stringList);
     }
 }

@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.List;
 
 public class MainForm extends JFrame {
     private JPanel root;
@@ -45,5 +46,9 @@ public class MainForm extends JFrame {
 
     public void setData(String[] data) {
         searchableData = data;
+    }
+
+    public void setData(List<String> data) {
+        searchableData = data.toArray(new String[]{});
     }
 }

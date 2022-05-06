@@ -1,51 +1,25 @@
 package com.company;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
-    static ArrayList<String> stringList;
 
     public static void main(String[] args) {
+        String text = "127.0.0.1";
+        Pattern pattern = Pattern.compile("^(\\d{1,3}.\\d{1,3}.\\d{1,3}.\\d{1,3})(:\\d{1,4})?$");
+        Matcher matcher = pattern.matcher(text);
+        if (matcher.find()) {
+            System.out.println(matcher.group(1));
+            System.out.println(matcher.group(2));
+        } else {
 
-        try {
-            System.out.println(stringList.add("5"));
-        }catch(NullPointerException mySuperPuperException){
-            mySuperPuperException.printStackTrace();
-            System.out.println("ACHTUNG WARNING");
+            System.out.println("OOps");
         }
 
-        try {
-            System.out.println(division(4, 0));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        readFile("src/text.txt");
-    }
 
-    static double division(double a, double b) throws Exception {
-        if(b==0) throw new Exception("Вы попытались поделить на ноль - вы редиска");
-        return a / b;
-    }
-
-    static void readFile(String fileName){
-        InputStreamReader inputStreamReader = null;
-        try {
-            inputStreamReader = new InputStreamReader(new FileInputStream(fileName));
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден");
-            e.printStackTrace();
-        }
-
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        String line;
-        try {
-            while ((line = bufferedReader.readLine()) != null) {
-                System.out.println(line);
-            }
-        }catch (IOException e){
-            System.out.println("Файл занят");
-            e.printStackTrace();
+        while (matcher.find()) {
+            System.out.println(text.substring(matcher.start(), matcher.end()));
         }
     }
 }

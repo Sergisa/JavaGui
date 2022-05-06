@@ -1,49 +1,51 @@
 package com.company;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
-
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
-    public static String a = "hello";
-    public static String b = "hellagfhs";
-
+    static ArrayList<String> stringList;
 
     public static void main(String[] args) {
-        FlatDarculaLaf.install();
-        Student sergey = new Student("sergey", 4, 8);
-        Student sofya = new Student("sofya", 5, 1);
-        Student john = new Student("john", 5, 3);
-        Student anton = new Student("anton", 5, 2);
 
-        String[] stringArray = new String[]{"One", "Two", "Three"};
-        List<String> stringList = new ArrayList<>(Arrays.asList(stringArray));
-        stringList.add("Four");
-        stringList.add("Five");
-        stringList.add("Six Seven Eight");
+        try {
+            System.out.println(stringList.add("5"));
+        }catch(NullPointerException mySuperPuperException){
+            mySuperPuperException.printStackTrace();
+            System.out.println("ACHTUNG WARNING");
+        }
 
-        List<Student> studentList = new ArrayList<>(Arrays.asList(sergey, sofya, john, anton));
-        System.out.println(studentList);
-        List<Student> sortedStudentList = studentList.stream().sorted(new Comparator<Student>() {
-            @Override
-            public int compare(Student o1, Student o2) {
-                System.out.print(o1);
-                System.out.print(" | ");
-                System.out.print(o2);
-                System.out.println(" -> " + (o2.height - o1.height));
-                return o2.height - o1.height;
+        try {
+            System.out.println(division(4, 0));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        readFile("src/text.txt");
+    }
+
+    static double division(double a, double b) throws Exception {
+        if(b==0) throw new Exception("Вы попытались поделить на ноль - вы редиска");
+        return a / b;
+    }
+
+    static void readFile(String fileName){
+        InputStreamReader inputStreamReader = null;
+        try {
+            inputStreamReader = new InputStreamReader(new FileInputStream(fileName));
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден");
+            e.printStackTrace();
+        }
+
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        String line;
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
             }
-        }).collect(Collectors.toList());
-        System.out.println(sortedStudentList);
-
-        System.out.println(stringList);
-        List<String> sortedList = stringList.stream().sorted().collect(Collectors.toList());
-        System.out.println(sortedList);
-
-
+        }catch (IOException e){
+            System.out.println("Файл занят");
+            e.printStackTrace();
+        }
     }
 }

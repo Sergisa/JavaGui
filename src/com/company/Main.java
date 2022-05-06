@@ -6,20 +6,13 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) {
-        String text = "127.0.0.1";
-        Pattern pattern = Pattern.compile("^(\\d{1,3}.\\d{1,3}.\\d{1,3}.\\d{1,3})(:\\d{1,4})?$");
-        Matcher matcher = pattern.matcher(text);
-        if (matcher.find()) {
-            System.out.println(matcher.group(1));
-            System.out.println(matcher.group(2));
-        } else {
+        Settings s1 = Settings.getInstance(5);
+        Settings s2 = Settings.getInstance(6);
 
-            System.out.println("OOps");
-        }
-
-
-        while (matcher.find()) {
-            System.out.println(text.substring(matcher.start(), matcher.end()));
-        }
+        System.out.println(s1);
+        System.out.println(s2);
+        System.out.println(s1.durationTime);
+        System.out.println(s2.durationTime);
+        System.out.println(s2==s1);
     }
 }

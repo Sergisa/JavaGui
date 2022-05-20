@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Objects;
 
-public class Student {
+public class Student implements Comparable<Student>{
     public int age;
     public int height;
     public String label;
@@ -30,5 +30,10 @@ public class Student {
     @Override
     public String toString() {
         return "{" + label + ": " + height + "}";
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        return 0;
     }
 }

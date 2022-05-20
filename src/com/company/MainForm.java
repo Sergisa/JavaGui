@@ -1,16 +1,18 @@
 package com.company;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MainForm extends JFrame {
     private JPanel root;
-    private JButton clickMeButton;
-    private JTextField searchValue;
+    private JList<Student> studentListView;
     private String[] searchableData;
 
     public MainForm() {
@@ -19,36 +21,25 @@ public class MainForm extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(300, 300);
 
-        clickMeButton.addActionListener(new ActionListener() {
+
+        Student sergey = new Student("sergey", 4, 8);
+        Student sofya = new Student("sofya", 5, 1);
+        Student john = new Student("john", 5, 3);
+        Student anton = new Student("anton", 5, 2);
+
+        List<Student> studentList = new ArrayList<>(Arrays.asList(sergey, sofya, john, anton));
+        studentListView.setCellRenderer(new StudentListViewRenderer());
+        DefaultListModel<Student> studentListViewModel = new DefaultListModel<>();
+        studentListViewModel.addAll(studentList);
+        studentListView.setModel(studentListViewModel);
+
+        studentListView.addListSelectionListener(new ListSelectionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (Arrays.asList(searchableData).contains(searchValue.getText())) {
-                    setCheck();
-                } else {
-                    removeCheck();
+            public void valueChanged(ListSelectionEvent e) {
+                if(!e.getValueIsAdjusting()){
+                    System.out.println(studentListView.getSelectedValue().label);
                 }
             }
         });
-    }
-
-    private void removeCheck() {
-        setIcon("src/cancel.png");
-    }
-
-    private void setCheck() {
-        setIcon("src/check-mark.png");
-    }
-
-    private void setIcon(String path) {
-        ImageIcon icon = new ImageIcon(path);
-        clickMeButton.setIcon(new ImageIcon(icon.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT)));
-    }
-
-    public void setData(String[] data) {
-        searchableData = data;
-    }
-
-    public void setData(List<String> data) {
-        searchableData = data.toArray(new String[]{});
     }
 }
